@@ -11,12 +11,21 @@ borda de papel adicionada). Cole estes créditos na descrição do vídeo:
 - **Soldado** — "Soldado mexicano, portando un Mk 19.jpg", foto de **IBERZA**, Wikimedia Commons,
   licença CC BY-SA 4.0 (recortado) — https://commons.wikimedia.org/wiki/File:Soldado_mexicano,_portando_un_Mk_19.jpg
 
+- **Oshkosh Sandcat** — "Oshkosh SandCat side.jpg", foto de **Anachrone**, Wikimedia Commons,
+  domínio público — https://commons.wikimedia.org/wiki/File:Oshkosh_SandCat_side.jpg
+- **Metralhadora calibre .50 (M2)** — "M2 Browning Machine Gun in Givatayim, Israel.jpg", foto de
+  **avishai teicher**, Wikimedia Commons, domínio público —
+  https://commons.wikimedia.org/wiki/File:M2_Browning_Machine_Gun_in_Givatayim,_Israel.jpg
+- **Lança-granadas de 40 mm (Mk 19)** — "MK19-02.jpg", governo dos EUA, Wikimedia Commons,
+  domínio público — https://commons.wikimedia.org/wiki/File:MK19-02.jpg
+
 Mapa: Natural Earth (domínio público), via `world-atlas`.
 
 ## Áudio
 
-- **Trilha de fundo** (`public/music/bed.mp3`) — gerada no Magnific com Google Lyria 3 Pro;
-  trecho de 59,35 s a 90,35 s da faixa gerada, com fade de entrada e saída.
+- **Trilhas de fundo** (`public/music/*.mp3`) — geradas no Magnific com Google Lyria 3 Pro.
+  Intro: trecho de 59,35 s a 90,35 s da primeira faixa; Parte 1 usa o começo dessa mesma faixa;
+  Partes 2, 3, 4 e Final têm faixas próprias, cortadas e niveladas (loudnorm -16 LUFS).
 - **Efeitos sonoros** (`public/sfx/*.wav`) — gerados no Magnific (ElevenLabs SFX): papel,
   whoosh, disparo, impacto em blindagem, baque metálico, carimbo e pop. Normalizados a -1 dBFS.
 

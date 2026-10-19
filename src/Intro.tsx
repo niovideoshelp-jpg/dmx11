@@ -1,8 +1,6 @@
 import React from 'react';
-import {Audio} from '@remotion/media';
-import {AbsoluteFill, Sequence, interpolate, staticFile} from 'remotion';
-import {Ground} from './components/Ground';
-import {Grain} from './components/Grain';
+import {interpolate} from 'remotion';
+import {Cue, Film, FilmProps} from './components/Film';
 import {Scene} from './components/Scene';
 import {S1Route} from './scenes/S1Route';
 import {S2Protect} from './scenes/S2Protect';
@@ -13,12 +11,10 @@ import {S7Protection} from './scenes/S7Protection';
 
 export const INTRO_FRAMES = 930;
 
-export type IntroProps = {sfx: boolean; music?: boolean};
-
 // Foley cues on the absolute clock: [frame, file, volume]. Effects come from Magnific
 // (ElevenLabs SFX), peak-normalised to -1 dBFS, so these volumes are the mix.
 // Scene transitions are silent: the wipe carries no sound of its own.
-const CUES: [number, string, number][] = [
+const CUES: Cue[] = [
   [14, 'paper', 0.14],
   [71, 'impact', 0.18],
   [80, 'impact', 0.15],
@@ -55,10 +51,8 @@ const CUES: [number, string, number][] = [
 const VOICE_END = 893;
 const musicVolume = (f: number) => interpolate(f, [VOICE_END, VOICE_END + 12], [0.11, 0.2], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
 
-export const Intro: React.FC<IntroProps> = ({sfx, music = true}) => (
-  <AbsoluteFill>
-    <Ground />
-
+export const Intro: React.FC<FilmProps> = (props) => (
+  <Film {...props} voice="audio/intro.mp3" bed={{src: 'music/bed.mp3', volume: musicVolume}} cues={CUES}>
     {/* Later scenes sit underneath: the outgoing scene wipes away to reveal the next. */}
     <Scene from={816} dur={114} exitLen={0} name="6 · ¿Hasta dónde protege?">
       <S7Protection />
@@ -78,17 +72,5 @@ export const Intro: React.FC<IntroProps> = ({sfx, music = true}) => (
     <Scene from={0} dur={146} name="1 · Zona de disparos">
       <S1Route />
     </Scene>
-
-    <Grain />
-
-    <Audio src={staticFile('audio/intro.mp3')} />
-    {music ? <Audio src={staticFile('music/bed.mp3')} volume={musicVolume} /> : null}
-    {sfx
-      ? CUES.map(([f, name, volume], i) => (
-          <Sequence key={i} from={f} durationInFrames={30} layout="none" name={`sfx ${name}`}>
-            <Audio src={staticFile(`sfx/${name}.wav`)} volume={volume} />
-          </Sequence>
-        ))
-      : null}
-  </AbsoluteFill>
+  </Film>
 );

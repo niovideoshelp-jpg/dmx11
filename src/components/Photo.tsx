@@ -7,6 +7,9 @@ export const IMG = {
   dnxi: {src: 'img/dnxi.png', w: 810, h: 510},
   chassis: {src: 'img/chassis.png', w: 869, h: 429},
   soldier: {src: 'img/soldier.png', w: 366, h: 470},
+  sandcat: {src: 'img/sandcat.png', w: 859, h: 571},
+  m2: {src: 'img/m2.png', w: 881, h: 470},
+  mk19: {src: 'img/mk19.png', w: 947, h: 659},
 } as const;
 export type ImgKey = keyof typeof IMG;
 
@@ -101,4 +104,14 @@ export const PhotoPlate: React.FC<{
 export const toScreen = (pt: readonly number[], x: number, y: number, k: number): [number, number] => [
   x + pt[0] * k,
   y + pt[1] * k,
+];
+
+/** Side hull of the DN-XI troop compartment on img/dnxi.png, and where its occupants sit. */
+export const DNXI_HULL_SIDE = 'M399,163 L753,149 L759,329 L636,341 L611,371 L406,383 Z';
+export const DNXI_SEATS: [number, number, number][] = [
+  [452, 268, 1.0],
+  [527, 264, 0.96],
+  [600, 260, 0.92],
+  [670, 256, 0.88],
+  [732, 252, 0.84],
 ];
