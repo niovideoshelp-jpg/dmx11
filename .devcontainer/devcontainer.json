@@ -1,0 +1,8 @@
+{
+  "name": "DMX11 · Remotion",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:22",
+  "postCreateCommand": "npm ci && npx remotion browser ensure",
+  "forwardPorts": [3000],
+  "portsAttributes": {"3000": {"label": "Remotion Studio", "onAutoForward": "openBrowser"}},
+  "customizations": {"vscode": {"extensions": ["dbaeumer.vscode-eslint"]}}
+}

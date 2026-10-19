@@ -1,0 +1,42 @@
+name: Render video
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      sfx:
+        description: Incluir efeitos sonoros (true/false)
+        default: 'true'
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Type-check
+        run: npx tsc --noEmit
+
+      - name: Install render browser
+        run: npx remotion browser ensure
+
+      - name: Render 1080p
+        run: >
+          npx remotion render src/index.ts Intro out/dmx11-intro.mp4
+          --codec=h264 --crf=18 --concurrency=4
+          --props='{"sfx": ${{ github.event.inputs.sfx || 'true' }}}'
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dmx11-intro
+          path: out/dmx11-intro.mp4
+          retention-days: 30
