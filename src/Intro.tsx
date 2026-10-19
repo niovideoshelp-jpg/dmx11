@@ -1,6 +1,6 @@
 import React from 'react';
 import {Audio} from '@remotion/media';
-import {AbsoluteFill, Sequence, staticFile} from 'remotion';
+import {AbsoluteFill, Sequence, interpolate, staticFile} from 'remotion';
 import {Ground} from './components/Ground';
 import {Grain} from './components/Grain';
 import {Scene} from './components/Scene';
@@ -13,47 +13,56 @@ import {S7Protection} from './scenes/S7Protection';
 
 export const INTRO_FRAMES = 930;
 
-export type IntroProps = {sfx: boolean};
+export type IntroProps = {sfx: boolean; music?: boolean};
 
-// Foley cues on the absolute clock: [frame, file, volume]. Kept low under the voice.
+// Foley cues on the absolute clock: [frame, file, volume]. Effects come from Magnific
+// (ElevenLabs SFX), peak-normalised to -1 dBFS, so these volumes are the mix.
+// Transition whooshes sit well under everything else.
+const WHOOSH = 0.06;
 const CUES: [number, string, number][] = [
-  [14, 'paper', 0.3],
-  [71, 'impact', 0.32],
-  [80, 'impact', 0.28],
-  [90, 'impact', 0.3],
-  [109, 'pop', 0.35],
-  [124, 'impact', 0.26],
-  [134, 'whoosh', 0.22],
-  [200, 'pop', 0.3],
-  [222, 'pop', 0.18],
-  [244, 'whoosh', 0.22],
-  [302, 'pop', 0.3],
-  [327, 'paper', 0.28],
-  [393, 'whoosh', 0.2],
-  [410, 'paper', 0.25],
-  [467, 'thud', 0.75],
-  [509, 'pop', 0.22],
-  [513, 'pop', 0.2],
-  [517, 'pop', 0.22],
-  [521, 'pop', 0.2],
-  [551, 'stamp', 0.75],
-  [595, 'whoosh', 0.26],
-  [647, 'paper', 0.26],
-  [667, 'pop', 0.25],
-  [716, 'whoosh', 0.22],
-  [768, 'pop', 0.25],
-  [794, 'pop', 0.18],
-  [800, 'pop', 0.18],
-  [806, 'pop', 0.18],
-  [814, 'whoosh', 0.2],
-  [838, 'impact', 0.4],
-  [846, 'impact', 0.36],
-  [854, 'impact', 0.4],
-  [865, 'pop', 0.3],
-  [883, 'pop', 0.3],
+  [14, 'paper', 0.14],
+  [71, 'impact', 0.18],
+  [80, 'impact', 0.15],
+  [90, 'impact', 0.17],
+  [109, 'pop', 0.12],
+  [124, 'impact', 0.14],
+  [134, 'whoosh', WHOOSH],
+  [200, 'pop', 0.12],
+  [222, 'pop', 0.08],
+  [244, 'whoosh', WHOOSH],
+  [302, 'pop', 0.12],
+  [327, 'paper', 0.14],
+  [393, 'whoosh', WHOOSH],
+  [410, 'paper', 0.12],
+  [467, 'thud', 0.36],
+  [509, 'pop', 0.09],
+  [513, 'pop', 0.08],
+  [517, 'pop', 0.09],
+  [521, 'pop', 0.08],
+  [551, 'stamp', 0.34],
+  [595, 'whoosh', 0.08],
+  [647, 'paper', 0.12],
+  [667, 'pop', 0.1],
+  [716, 'whoosh', WHOOSH],
+  [768, 'pop', 0.1],
+  [794, 'pop', 0.08],
+  [800, 'pop', 0.08],
+  [806, 'pop', 0.08],
+  [814, 'whoosh', WHOOSH],
+  [838, 'armor', 0.22],
+  [846, 'armor', 0.19],
+  [854, 'armor', 0.22],
+  [865, 'pop', 0.12],
+  [883, 'pop', 0.12],
 ];
 
-export const Intro: React.FC<IntroProps> = ({sfx}) => (
+// Music bed (Magnific, Google Lyria 3 Pro), cut so its pulse enters with the DN-XI at 4.7 s
+// and its hits land on "realmente mexicano" at 26 s. ~14 dB under the voice, lifted once
+// the narration ends at 29.8 s; fades are baked into the file.
+const VOICE_END = 893;
+const musicVolume = (f: number) => interpolate(f, [VOICE_END, VOICE_END + 12], [0.11, 0.2], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+
+export const Intro: React.FC<IntroProps> = ({sfx, music = true}) => (
   <AbsoluteFill>
     <Ground />
 
@@ -80,6 +89,7 @@ export const Intro: React.FC<IntroProps> = ({sfx}) => (
     <Grain />
 
     <Audio src={staticFile('audio/intro.mp3')} />
+    {music ? <Audio src={staticFile('music/bed.mp3')} volume={musicVolume} /> : null}
     {sfx
       ? CUES.map(([f, name, volume], i) => (
           <Sequence key={i} from={f} durationInFrames={30} layout="none" name={`sfx ${name}`}>

@@ -13,6 +13,13 @@ borda de papel adicionada). Cole estes créditos na descrição do vídeo:
 
 Mapa: Natural Earth (domínio público), via `world-atlas`.
 
+## Áudio
+
+- **Trilha de fundo** (`public/music/bed.mp3`) — gerada no Magnific com Google Lyria 3 Pro;
+  trecho de 59,35 s a 90,35 s da faixa gerada, com fade de entrada e saída.
+- **Efeitos sonoros** (`public/sfx/*.wav`) — gerados no Magnific (ElevenLabs SFX): papel,
+  whoosh, disparo, impacto em blindagem, baque metálico, carimbo e pop. Normalizados a -1 dBFS.
+
 As licenças CC BY-SA pedem que obras derivadas sejam compartilhadas sob a mesma licença.
 
 ## Como as fotos foram processadas

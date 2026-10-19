@@ -10,7 +10,8 @@ um único acento amarelo) para a narração `public/audio/intro.mp3` (30 s, espa
   sozinho; depois rode `npm run dev` e abra a porta 3000 (Remotion Studio).
 - **Render na nuvem**: todo push na `main` dispara *Actions → Render video*, que gera
   `dmx11-intro.mp4` e o anexa como artefato da execução (Actions → execução → *Artifacts*).
-  Para renderizar sem efeitos sonoros: *Run workflow* com `sfx = false`.
+  Para renderizar sem efeitos sonoros: *Run workflow* com `sfx = false`. O volume da trilha e de
+  cada efeito fica em `src/Intro.tsx` (`musicVolume`, `WHOOSH`, `CUES`).
 
 ## Rodar localmente
 
@@ -31,7 +32,8 @@ node scripts/stills.mjs 120 380 530   # frames de revisão em out/stills/
 | `src/lottie/` | ícones Lottie gerados por `scripts/build-lottie.mjs` |
 | `src/data/mexico.ts` | contorno do México gerado por `scripts/build-map.mjs` |
 | `public/img/` | fotos reais recortadas (créditos em [CREDITS.md](CREDITS.md)) |
-| `public/sfx/` | efeitos sintetizados com ffmpeg (papel, impacto, carimbo, whoosh) |
+| `public/music/` | trilha de fundo (Magnific · Lyria 3 Pro) |
+| `public/sfx/` | efeitos sonoros (Magnific · ElevenLabs SFX) |
 
 GSAP entra via `@remotion/gsap` (timeline pausada, guiada pelo frame) na cena de montagem
 (`S4Build`: a blindagem cai sobre o chassi, o carimbo e o zoom na arma) e como biblioteca de
