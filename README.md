@@ -11,7 +11,7 @@ um único acento amarelo) para a narração `public/audio/intro.mp3` (30 s, espa
 - **Render na nuvem**: todo push na `main` dispara *Actions → Render video*, que gera
   `dmx11-intro.mp4` e o anexa como artefato da execução (Actions → execução → *Artifacts*).
   Para renderizar sem efeitos sonoros: *Run workflow* com `sfx = false`. O volume da trilha e de
-  cada efeito fica em `src/Intro.tsx` (`musicVolume`, `WHOOSH`, `CUES`).
+  cada efeito fica em `src/Intro.tsx` (`musicVolume`, `CUES`).
 
 ## Rodar localmente
 

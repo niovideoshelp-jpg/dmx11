@@ -17,8 +17,7 @@ export type IntroProps = {sfx: boolean; music?: boolean};
 
 // Foley cues on the absolute clock: [frame, file, volume]. Effects come from Magnific
 // (ElevenLabs SFX), peak-normalised to -1 dBFS, so these volumes are the mix.
-// Transition whooshes sit well under everything else.
-const WHOOSH = 0.06;
+// Scene transitions are silent: the wipe carries no sound of its own.
 const CUES: [number, string, number][] = [
   [14, 'paper', 0.14],
   [71, 'impact', 0.18],
@@ -26,13 +25,10 @@ const CUES: [number, string, number][] = [
   [90, 'impact', 0.17],
   [109, 'pop', 0.12],
   [124, 'impact', 0.14],
-  [134, 'whoosh', WHOOSH],
   [200, 'pop', 0.12],
   [222, 'pop', 0.08],
-  [244, 'whoosh', WHOOSH],
   [302, 'pop', 0.12],
   [327, 'paper', 0.14],
-  [393, 'whoosh', WHOOSH],
   [410, 'paper', 0.12],
   [467, 'thud', 0.36],
   [509, 'pop', 0.09],
@@ -40,15 +36,12 @@ const CUES: [number, string, number][] = [
   [517, 'pop', 0.09],
   [521, 'pop', 0.08],
   [551, 'stamp', 0.34],
-  [595, 'whoosh', 0.08],
   [647, 'paper', 0.12],
   [667, 'pop', 0.1],
-  [716, 'whoosh', WHOOSH],
   [768, 'pop', 0.1],
   [794, 'pop', 0.08],
   [800, 'pop', 0.08],
   [806, 'pop', 0.08],
-  [814, 'whoosh', WHOOSH],
   [838, 'armor', 0.22],
   [846, 'armor', 0.19],
   [854, 'armor', 0.22],
